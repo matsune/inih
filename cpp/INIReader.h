@@ -10,6 +10,7 @@
 
 #include <map>
 #include <string>
+#include <set>
 
 // Read an INI file into easy-to-access name/value pairs. (Note that I've gone
 // for simplicity here rather than speed, but it should be pretty decent.)
@@ -45,9 +46,13 @@ public:
     // Return true if a value exists with the given section and field names.
     bool HasValue(const std::string& section, const std::string& name) const;
 
+    // Get section names from INI file.
+    std::set<std::string> GetSections() const;
+
 private:
     int _error;
     std::map<std::string, std::string> _values;
+    std::set<std::string> _sections;
     static std::string MakeKey(const std::string& section, const std::string& name);
     static int ValueHandler(void* user, const char* section, const char* name,
                             const char* value);

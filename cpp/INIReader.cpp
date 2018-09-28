@@ -80,9 +80,15 @@ int INIReader::ValueHandler(void* user, const char* section, const char* name,
                             const char* value)
 {
     INIReader* reader = static_cast<INIReader*>(user);
+    reader->_sections.insert(section);
     string key = MakeKey(section, name);
     if (reader->_values[key].size() > 0)
         reader->_values[key] += "\n";
     reader->_values[key] += value;
     return 1;
+}
+
+std::set<std::string> INIReader::GetSections() const
+{
+    return _sections;
 }
